@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  rag-chatbot:
+    build: .
+    ports:
+      - "8000:8000"       # API + UI available at localhost:8000
+    volumes:
+      - ./docs:/app/docs          # Mount docs folder (add files without rebuild)
+      - ./chroma_db:/app/chroma_db # Persist vector DB between restarts
+    env_file:
+      - .env
+    restart: unless-stopped
